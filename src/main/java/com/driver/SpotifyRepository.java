@@ -277,8 +277,7 @@ public class SpotifyRepository {
             }
         }
 
-        List<User> allUsersThatLikedTheSong = new ArrayList<>();
-        allUsersThatLikedTheSong = songLikeMap.get(songThatWasLiked);
+        List<User> allUsersThatLikedTheSong = songLikeMap.get(songThatWasLiked);
         boolean alreadyLiked = false;
         for (User user:allUsersThatLikedTheSong){
             if (user.getMobile().equals(mobile)){
@@ -288,13 +287,11 @@ public class SpotifyRepository {
 
         Artist artist = getArtistUsingSongTitle(songTitle);
 
-        if (doesSongExist && doesUserExist){
-            if (!alreadyLiked) {
+        if ((doesSongExist && doesUserExist)  && !(alreadyLiked)){
                 allUsersThatLikedTheSong.add(userThatLikedTheSong);
                 songLikeMap.put(songThatWasLiked, allUsersThatLikedTheSong);
                 songThatWasLiked.setLikes(songThatWasLiked.getLikes() + 1);
-            }
-            artist.setLikes(artist.getLikes() + 1);
+                artist.setLikes(artist.getLikes() + 1);
         }
         return songThatWasLiked;
     }
