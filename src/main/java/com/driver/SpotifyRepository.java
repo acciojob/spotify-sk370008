@@ -318,7 +318,7 @@ public class SpotifyRepository {
         String mostPopular = null;
         int likes = Integer.MIN_VALUE;
         for (Artist artist :artists){
-            if (artist.getLikes()>=likes){
+            if (artist.getLikes()>likes){
                 likes = artist.getLikes();
                 mostPopular = artist.getName();
             }
