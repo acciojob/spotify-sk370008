@@ -33,6 +33,7 @@ public class SpotifyRepository {
     //contains list of artists
     public List<Artist> artists;
 
+
     public SpotifyRepository(){
         //To avoid hitting apis multiple times, initialize all the hashmaps here with some dummy data
         artistAlbumMap = new HashMap<>();
@@ -208,11 +209,14 @@ public class SpotifyRepository {
         if (!doesUserExist){
             throw new Exception("User does not exist");
         }
-
+        Playlist playlistWithGivenTitle = null;
+        List<User> listenerUsers = new ArrayList<>();
         boolean doesPlaylistExist = false;
         for (Playlist playlist:playlists){
             if (playlist.getTitle().equals(playlistTitle)){
                 doesPlaylistExist = true;
+                playlistWithGivenTitle = playlist;
+                listenerUsers = playlistListenerMap.get(playlist);
             }
         }
         if (!doesPlaylistExist){
@@ -226,15 +230,15 @@ public class SpotifyRepository {
             }
         }
 
-//        playlistListenerMap.get()
-        Playlist playlistWithGivenTitle = null;
-        List<User> listenerUsers = new ArrayList<>();
-        for (Playlist playlist : playlistListenerMap.keySet()){
-            if (playlist.getTitle().equals(playlistTitle)){
-                playlistWithGivenTitle = playlist;
-                listenerUsers = playlistListenerMap.get(playlist);
-            }
-        }
+//        playlistListenerMap.get() ----------
+//        Playlist playlistWithGivenTitle = null;
+//        List<User> listenerUsers = new ArrayList<>();
+//        for (Playlist playlist : playlistListenerMap.keySet()){
+//            if (playlist.getTitle().equals(playlistTitle)){
+//                playlistWithGivenTitle = playlist;
+//                listenerUsers = playlistListenerMap.get(playlist);
+//            }
+//        }
         for (User user: listenerUsers){
             if (user.getMobile().equals(mobile)){
                 isUserCreatorOrListener = true;
@@ -245,9 +249,9 @@ public class SpotifyRepository {
                 listenerUsers.add(user);
             }
         }
-//        listenerUsers.add();
         if (!isUserCreatorOrListener){
             playlistListenerMap.put(playlistWithGivenTitle,listenerUsers);
+
         }
         return playlistWithGivenTitle;
     }
