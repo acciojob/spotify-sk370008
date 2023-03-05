@@ -282,9 +282,9 @@ public class SpotifyRepository {
         }
 
         List<User> usersAlreadyLiked = new ArrayList<>();
-        if (doesSongExists && doesUserExists){
-            for (Song song:)
-        }
+//        if (doesSongExists && doesUserExists){
+//            for (Song song:)
+//        }
 //        song => list of users that liked the song
 
         return song1;
