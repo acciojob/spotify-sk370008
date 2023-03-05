@@ -178,16 +178,16 @@ public class SpotifyRepository {
             }
         }
 
-        if (doesUserExist) {
-            playlistSongMap.put(playlist, songWithSameTitle);
-            creatorPlaylistMap.put(creatorOfPlaylist, playlist);
-            List<User> userList = new ArrayList<>();
-            userList.add(creatorOfPlaylist);
-            playlistListenerMap.put(playlist, userList);
-            List<Playlist> playlists1 = new ArrayList<>();
-            playlists1.add(playlist);
-            userPlaylistMap.put(creatorOfPlaylist, playlists1);
-        }
+
+        playlistSongMap.put(playlist, songWithSameTitle);
+        creatorPlaylistMap.put(creatorOfPlaylist, playlist);
+        List<User> userList = new ArrayList<>();
+        userList.add(creatorOfPlaylist);
+        playlistListenerMap.put(playlist, userList);
+        List<Playlist> playlists1 = new ArrayList<>();
+        playlists1.add(playlist);
+        userPlaylistMap.put(creatorOfPlaylist, playlists1);
+
         return playlist;
     }
 
@@ -195,7 +195,7 @@ public class SpotifyRepository {
     //Error => NullPointer Exception     3
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
         //Find the playlist with given title and add user as listener of that playlist and update user accordingly
-        //If the user is creater or already a listener, do nothing
+        //If the user is creator or already a listener, do nothing
         //If the user does not exist, throw "User does not exist" exception
         //If the playlist does not exists, throw "Playlist does not exist" exception
         // Return the playlist after updating
@@ -250,9 +250,12 @@ public class SpotifyRepository {
                 listenerUsers.add(user);
             }
         }
+        List<Playlist> playlists1 = new ArrayList<>();
+        playlists1 = userPlaylistMap.get(creatorOfPlaylist);
+        playlists1.add(playlistWithGivenTitle);
         if (!isUserCreatorOrListener){
             playlistListenerMap.put(playlistWithGivenTitle,listenerUsers);
-
+            userPlaylistMap.put(creatorOfPlaylist,playlists1);
         }
         return playlistWithGivenTitle;
     }
