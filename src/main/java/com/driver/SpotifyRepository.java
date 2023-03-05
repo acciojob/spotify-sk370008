@@ -147,7 +147,7 @@ public class SpotifyRepository {
     //Error => NullPointer Exception      1
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
         //Create a playlist with given title and add all songs having the given titles in the database to that playlist
-        //The creater of the playlist will be the given user and will also be the only listener at the time of playlist creation
+        //The creator of the playlist will be the given user and will also be the only listener at the time of playlist creation
         //If the user does not exist, throw "User does not exist" exception
         boolean doesUserExist = false;
         User creatorOfPlaylist = null;
@@ -178,15 +178,16 @@ public class SpotifyRepository {
             }
         }
 
-        playlistSongMap.put(playlist, songWithSameTitle);
-        creatorPlaylistMap.put(creatorOfPlaylist, playlist);
-        List<User> userList = new ArrayList<>();
-        userList.add(creatorOfPlaylist);
-        playlistListenerMap.put(playlist, userList);
-        List<Playlist> playlists1 = new ArrayList<>();
-        playlists1.add(playlist);
-        userPlaylistMap.put(creatorOfPlaylist, playlists1);
-
+        if (doesUserExist) {
+            playlistSongMap.put(playlist, songWithSameTitle);
+            creatorPlaylistMap.put(creatorOfPlaylist, playlist);
+            List<User> userList = new ArrayList<>();
+            userList.add(creatorOfPlaylist);
+            playlistListenerMap.put(playlist, userList);
+            List<Playlist> playlists1 = new ArrayList<>();
+            playlists1.add(playlist);
+            userPlaylistMap.put(creatorOfPlaylist, playlists1);
+        }
         return playlist;
     }
 
