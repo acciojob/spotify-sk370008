@@ -21,6 +21,7 @@ public class SpotifyRepository {
     //contains song and the list of users that liked the song
     public HashMap<Song, List<User>> songLikeMap;
 
+
     //contains list of users
     public List<User> users;
     //contains list of songs
@@ -143,7 +144,6 @@ public class SpotifyRepository {
 
 
 
-    //No of errors = 1 && failures = 1 null pointer
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
         //Create a playlist with given title and add all songs having the given titles in the database to that playlist
         //The creater of the playlist will be the given user and will also be the only listener at the time of playlist creation
@@ -189,7 +189,6 @@ public class SpotifyRepository {
         return playlist;
     }
 
-    //failures = 1 null pointer
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
         //Find the playlist with given title and add user as listener of that playlist and update user accordingly
         //If the user is creater or already a listener, do nothing
@@ -259,43 +258,84 @@ public class SpotifyRepository {
         //If the user does not exist, throw "User does not exist" exception
         //If the song does not exist, throw "Song does not exist" exception
         //Return the song after updating
-        User user1 = null;
-        boolean doesUserExists = false;
-        for (User user :users){
-            if (user.getMobile().equals(mobile)){
-                user1 = user;
-                doesUserExists = true;
-            }
-        }
-        if (!doesUserExists){
-            throw new Exception("User does not exist");
-        }
-        boolean doesSongExists = false;
-        Song song1 = null;
+        boolean doesSongExist = false;
+        boolean doesUserExist = false;
+        Song songThatWasLiked = null;
+        User userThatLikedTheSong = null;
         for (Song song :songs){
             if (song.getTitle().equals(songTitle)){
-                song1 = song;
-                doesSongExists = true;
+                doesSongExist = true;
+                songThatWasLiked = song;
             }
         }
-        if (!doesSongExists){
-            throw new Exception("Song does not exist");
+        for (User user : users){
+            if (user.getMobile().equals(mobile)){
+                doesUserExist = true;
+                userThatLikedTheSong = user;
+            }
         }
 
-        List<User> usersAlreadyLiked = new ArrayList<>();
-//        if (doesSongExists && doesUserExists){
-//            for (Song song:)
-//        }
-//        song => list of users that liked the song
+        List<User> allUsersThatLikedTheSong = new ArrayList<>();
+        allUsersThatLikedTheSong = songLikeMap.get(songThatWasLiked);
+        boolean alreadyLiked = false;
+        for (User user:allUsersThatLikedTheSong){
+            if (user.getMobile().equals(mobile)){
+                alreadyLiked = true;
+            }
+        }
 
-        return song1;
+        Artist artist = getArtistUsingSongTitle(songTitle);
+
+        if ((doesSongExist && doesUserExist) && !(alreadyLiked)){
+            allUsersThatLikedTheSong.add(userThatLikedTheSong);
+            songLikeMap.put(songThatWasLiked,allUsersThatLikedTheSong);
+            songThatWasLiked.setLikes(songThatWasLiked.getLikes() + 1);
+            artist.setLikes(artist.getLikes() + 1);
+        }
+        return songThatWasLiked;
+    }
+
+    public Artist getArtistUsingSongTitle(String songTitle){
+//        artistAlbumMap
+//        albumSongMap
+        List<Album> albumList = null;
+        List<Song> songList = null;
+        Artist belongsToArtist = null;
+        for (Artist artist : artistAlbumMap.keySet()){
+            albumList = artistAlbumMap.get(artist);
+            for (Album album : albumList){
+                songList = albumSongMap.get(album);
+                for (Song song :songList){
+                    if (song.getTitle().equals(songTitle)){
+                        belongsToArtist = artist;
+                    }
+                }
+            }
+        }
+        return belongsToArtist;
     }
 //  Errors = 1
     public String mostPopularArtist() {
-        return "SuCCEss";
+        String mostPopular = "";
+        int likes = Integer.MIN_VALUE;
+        for (Artist artist :artists){
+            if (artist.getLikes()>likes){
+                likes = artist.getLikes();
+                mostPopular += artist.getName();
+            }
+        }
+        return mostPopular;
     }
 //Errors = 1
     public String mostPopularSong() {
-        return "Nhi pata";
+        String mostPopular = "";
+        int likes = Integer.MIN_VALUE;
+        for (Song song : songs){
+            if (song.getLikes()>likes){
+                likes = song.getLikes();
+                mostPopular += song.getTitle();
+            }
+        }
+        return mostPopular;
     }
 }
