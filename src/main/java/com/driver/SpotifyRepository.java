@@ -292,8 +292,9 @@ public class SpotifyRepository {
             allUsersThatLikedTheSong.add(userThatLikedTheSong);
             songLikeMap.put(songThatWasLiked,allUsersThatLikedTheSong);
             songThatWasLiked.setLikes(songThatWasLiked.getLikes() + 1);
-            artist.setLikes(artist.getLikes() + 1);
+
         }
+        artist.setLikes(artist.getLikes() + 1);
         return songThatWasLiked;
     }
 
