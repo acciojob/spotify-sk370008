@@ -141,6 +141,8 @@ public class SpotifyRepository {
         return playlist;
     }
 
+
+
     //No of errors = 1 && failures = 1 null pointer
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
         //Create a playlist with given title and add all songs having the given titles in the database to that playlist
@@ -161,6 +163,13 @@ public class SpotifyRepository {
             playlist = new Playlist(title);
             playlists.add(playlist);
             List<Song> songWithSameTitle = new ArrayList<>();
+            for (String songName :songTitles){
+                for (Song song : songs){
+                    if(song.getTitle().equals(songName)){
+                        songWithSameTitle.add(song);
+                    }
+                }
+            }
             for (Song song : songs) {
                 if (song.getTitle().equals(title)) {
                     songWithSameTitle.add(song);
@@ -272,26 +281,12 @@ public class SpotifyRepository {
             throw new Exception("Song does not exist");
         }
 
+        List<User> usersAlreadyLiked = new ArrayList<>();
+        if (doesSongExists && doesUserExists){
+            for (Song song:)
+        }
 //        song => list of users that liked the song
-        List<User> userThatLiked = new ArrayList<>();
-        for (Song song:songLikeMap.keySet()){
-            if (song.getTitle().equals(songTitle)){
-                userThatLiked = songLikeMap.get(song);
-            }
-        }
-        boolean containsUserThatLiked = false;
-        for (User user:userThatLiked){
-            if (user.getMobile().equals(mobile)){
-                containsUserThatLiked = true;
-            }
-        }
 
-        if (!containsUserThatLiked){
-            userThatLiked.add(user1);
-            song1.setLikes(song1.getLikes() + 1);
-            songLikeMap.put(song1,userThatLiked);
-
-        }
         return song1;
     }
 //  Errors = 1
