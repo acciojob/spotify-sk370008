@@ -315,24 +315,24 @@ public class SpotifyRepository {
         return belongsToArtist;
     }
     public String mostPopularArtist() {
-        String mostPopular = "";
+        String mostPopular = null;
         int likes = Integer.MIN_VALUE;
         for (Artist artist :artists){
             if (artist.getLikes()>likes){
                 likes = artist.getLikes();
-                mostPopular += artist.getName();
+                mostPopular = artist.getName();
             }
         }
         return mostPopular;
     }
 
     public String mostPopularSong() {
-        String mostPopular = "";
+        String mostPopular = null;
         int likes = Integer.MIN_VALUE;
         for (Song song : songs){
             if (song.getLikes()>likes){
                 likes = song.getLikes();
-                mostPopular += song.getTitle();
+                mostPopular = song.getTitle();
             }
         }
         return mostPopular;
