@@ -288,10 +288,12 @@ public class SpotifyRepository {
 
         Artist artist = getArtistUsingSongTitle(songTitle);
 
-        if ((doesSongExist && doesUserExist) && !(alreadyLiked)){
-            allUsersThatLikedTheSong.add(userThatLikedTheSong);
-            songLikeMap.put(songThatWasLiked,allUsersThatLikedTheSong);
-            songThatWasLiked.setLikes(songThatWasLiked.getLikes() + 1);
+        if (doesSongExist && doesUserExist){
+            if (!alreadyLiked) {
+                allUsersThatLikedTheSong.add(userThatLikedTheSong);
+                songLikeMap.put(songThatWasLiked, allUsersThatLikedTheSong);
+                songThatWasLiked.setLikes(songThatWasLiked.getLikes() + 1);
+            }
             artist.setLikes(artist.getLikes() + 1);
         }
         return songThatWasLiked;
