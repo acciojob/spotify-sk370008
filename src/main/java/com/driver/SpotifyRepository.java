@@ -143,13 +143,13 @@ public class SpotifyRepository {
     }
 
 
-
+    //Error => NullPointer Exception      1
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
         //Create a playlist with given title and add all songs having the given titles in the database to that playlist
         //The creater of the playlist will be the given user and will also be the only listener at the time of playlist creation
         //If the user does not exist, throw "User does not exist" exception
         boolean doesUserExist = false;
-        User creatorOfPlaylist = null;
+        User creatorOfPlaylist = new User();
         Playlist playlist = null;
         for (User user :users){
             if (user.getMobile().equals(mobile)){
@@ -189,6 +189,8 @@ public class SpotifyRepository {
         return playlist;
     }
 
+
+    //Error => NullPointer Exception     3
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
         //Find the playlist with given title and add user as listener of that playlist and update user accordingly
         //If the user is creater or already a listener, do nothing
@@ -296,8 +298,6 @@ public class SpotifyRepository {
     }
 
     public Artist getArtistUsingSongTitle(String songTitle){
-//        artistAlbumMap
-//        albumSongMap
         List<Album> albumList = null;
         List<Song> songList = null;
         Artist belongsToArtist = null;
@@ -314,7 +314,6 @@ public class SpotifyRepository {
         }
         return belongsToArtist;
     }
-//  Errors = 1
     public String mostPopularArtist() {
         String mostPopular = "";
         int likes = Integer.MIN_VALUE;
@@ -326,7 +325,7 @@ public class SpotifyRepository {
         }
         return mostPopular;
     }
-//Errors = 1
+
     public String mostPopularSong() {
         String mostPopular = "";
         int likes = Integer.MIN_VALUE;
