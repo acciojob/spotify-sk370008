@@ -292,9 +292,8 @@ public class SpotifyRepository {
             allUsersThatLikedTheSong.add(userThatLikedTheSong);
             songLikeMap.put(songThatWasLiked,allUsersThatLikedTheSong);
             songThatWasLiked.setLikes(songThatWasLiked.getLikes() + 1);
-
+            artist.setLikes(artist.getLikes() + 1);
         }
-        artist.setLikes(artist.getLikes() + 1);
         return songThatWasLiked;
     }
 
@@ -319,7 +318,7 @@ public class SpotifyRepository {
         String mostPopular = null;
         int likes = Integer.MIN_VALUE;
         for (Artist artist :artists){
-            if (artist.getLikes()>likes){
+            if (artist.getLikes()>=likes){
                 likes = artist.getLikes();
                 mostPopular = artist.getName();
             }
