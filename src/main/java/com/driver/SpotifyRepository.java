@@ -149,7 +149,7 @@ public class SpotifyRepository {
         //The creater of the playlist will be the given user and will also be the only listener at the time of playlist creation
         //If the user does not exist, throw "User does not exist" exception
         boolean doesUserExist = false;
-        User creatorOfPlaylist = new User();
+        User creatorOfPlaylist = null;
         Playlist playlist = null;
         for (User user :users){
             if (user.getMobile().equals(mobile)){
