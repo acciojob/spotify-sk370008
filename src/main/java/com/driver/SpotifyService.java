@@ -50,4 +50,8 @@ public class SpotifyService {
     public String mostPopularSong() {
         return spotifyRepository.mostPopularSong();
     }
+
+    public List<Artist> check(){
+        return spotifyRepository.check();
+    }
 }

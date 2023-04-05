@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SpotifyRepository {
+
     //contains artist and list of albums
     public HashMap<Artist, List<Album>> artistAlbumMap;
     //contains album and list of songs
@@ -66,6 +67,8 @@ public class SpotifyRepository {
     public Album createAlbum(String title, String artistName) {
         //If the artist does not exist, first create an artist with given name
         //Create an album with given title and artist
+
+
         Artist artist = null;
         boolean doesArtistExist = false;
         for (Artist artistInList : artists){
@@ -78,10 +81,13 @@ public class SpotifyRepository {
         albums.add(album);
         if (!doesArtistExist){
             artist = new Artist(artistName);
-            artistAlbumMap.put(artist,albums);
+            artists.add(artist);
+            if(!artistAlbumMap.containsKey(artist))
+                artistAlbumMap.put(artist,albums);
             return album;
         }else {
-            artistAlbumMap.put(artist,albums);
+            if (artistAlbumMap.containsKey(artist))
+                artistAlbumMap.put(artist,albums);
             return album;
         }
 
@@ -144,7 +150,6 @@ public class SpotifyRepository {
     }
 
 
-    //Error => NullPointer Exception      1
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
         //Create a playlist with given title and add all songs having the given titles in the database to that playlist
         //The creator of the playlist will be the given user and will also be the only listener at the time of playlist creation
@@ -192,72 +197,44 @@ public class SpotifyRepository {
     }
 
 
-    //Error => NullPointer Exception     3
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
         //Find the playlist with given title and add user as listener of that playlist and update user accordingly
         //If the user is creator or already a listener, do nothing
         //If the user does not exist, throw "User does not exist" exception
         //If the playlist does not exists, throw "Playlist does not exist" exception
         // Return the playlist after updating
+
+//        Step2 : add user as listener in playlistListenerMap
+//        Step3 : update userPlaylistMap and with user and playlist that is maded
+//        Step4 : check if user is creator or listener if any do nothing
+
         boolean doesUserExist = false;
-        User creatorOfPlaylist = null;
+        User userToBeAdded = null;
         for (User user :users){
             if (user.getMobile().equals(mobile)){
                 doesUserExist = true;
-                creatorOfPlaylist = user;
+                userToBeAdded = user;
             }
         }
         if (!doesUserExist){
             throw new Exception("User does not exist");
         }
-        Playlist playlistWithGivenTitle = null;
-        List<User> listenerUsers = new ArrayList<>();
         boolean doesPlaylistExist = false;
-        for (Playlist playlist:playlists){
+        Playlist playlistToFind = null;
+        for (Playlist playlist :playlists){
             if (playlist.getTitle().equals(playlistTitle)){
                 doesPlaylistExist = true;
-                playlistWithGivenTitle = playlist;
-                listenerUsers = playlistListenerMap.get(playlist);
+                playlistToFind = playlist;
             }
         }
         if (!doesPlaylistExist){
             throw new Exception("Playlist does not exist");
         }
-
         boolean isUserCreatorOrListener = false;
-        for (User user : creatorPlaylistMap.keySet()){
-            if (user.getMobile().equals(mobile)){
-                isUserCreatorOrListener = true;
-            }
-        }
+//        creatorPlaylistMap
+//        playlistListenerMap
 
-//        playlistListenerMap.get() ----------
-//        Playlist playlistWithGivenTitle = null;
-//        List<User> listenerUsers = new ArrayList<>();
-//        for (Playlist playlist : playlistListenerMap.keySet()){
-//            if (playlist.getTitle().equals(playlistTitle)){
-//                playlistWithGivenTitle = playlist;
-//                listenerUsers = playlistListenerMap.get(playlist);
-//            }
-//        }
-        for (User user: listenerUsers){
-            if (user.getMobile().equals(mobile)){
-                isUserCreatorOrListener = true;
-            }
-        }
-        for (User user :users){
-            if (user.getMobile().equals(mobile)){
-                listenerUsers.add(user);
-            }
-        }
-        List<Playlist> playlists1 = new ArrayList<>();
-        playlists1 = userPlaylistMap.get(creatorOfPlaylist);
-        playlists1.add(playlistWithGivenTitle);
-        if (!isUserCreatorOrListener){
-            playlistListenerMap.put(playlistWithGivenTitle,listenerUsers);
-            userPlaylistMap.put(creatorOfPlaylist,playlists1);
-        }
-        return playlistWithGivenTitle;
+        return playlistToFind;
     }
 
     //Errors = 2
@@ -343,5 +320,10 @@ public class SpotifyRepository {
             }
         }
         return mostPopular;
+    }
+
+
+    public List<Artist> check(){
+        return artists;
     }
 }

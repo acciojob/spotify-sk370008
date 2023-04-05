@@ -93,4 +93,9 @@ public class SpotifyController {
         //return the song title with maximum likes
         return spotifyService.mostPopularSong();
     }
+
+    @GetMapping("/check")
+    public List<Artist> check(){
+        return spotifyService.check();
+    }
 }
