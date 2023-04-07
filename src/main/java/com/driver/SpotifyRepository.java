@@ -34,7 +34,7 @@ public class SpotifyRepository {
     //contains list of albums
     public List<Album> albums;
     //contains list of artists
-    public HashSet<Artist> artists;
+    public List<Artist> artists;
 
 
     public SpotifyRepository(){
@@ -51,7 +51,7 @@ public class SpotifyRepository {
         songs = new ArrayList<>();
         playlists = new ArrayList<>();
         albums = new ArrayList<>();
-        artists = new HashSet<>();
+        artists = new ArrayList<>();
     }
 
     public User createUser(String name, String mobile) {
@@ -63,8 +63,15 @@ public class SpotifyRepository {
     }
 
     public Artist createArtist(String name) {
-        Artist artist = new Artist(name);
-        if (artists.contains(artist)) {
+        boolean doesArtistAlreadyExists = false;
+        for (Artist artist : artists){
+            if (artist.getName().equals(name)){
+                doesArtistAlreadyExists = true;
+            }
+        }
+        Artist artist = null;
+        if (!doesArtistAlreadyExists) {
+            artist = new Artist(name);
             artistAlbumMap.put(artist, new ArrayList<>());
             artists.add(artist);
         }
@@ -91,15 +98,13 @@ public class SpotifyRepository {
 
         Album album = new Album(title);
         albums.add(album);
-        if (artistAlbumMap.containsKey(artist)) {
-            artistAlbumMap.get(artist).add(album);
-        }
+        artistAlbumMap.get(artist).add(album);
+        albumSongMap.put(album,new ArrayList<>());
 
 
-        //last change
-        if (albumSongMap.containsKey(album)) {
-            albumSongMap.put(album, new ArrayList<>());
-        }
+
+
+
         return album;
     }
 
@@ -315,10 +320,8 @@ public class SpotifyRepository {
         }
 
         boolean userAlreadyLikedTheSong = false;
-        List<User> usersThatAlreadyLikedTheSong = null;
-        if (songLikeMap.containsKey(song)) {
-            usersThatAlreadyLikedTheSong = songLikeMap.get(song);
-        }
+        List<User> usersThatAlreadyLikedTheSong = songLikeMap.get(song);
+
         for (User user1 : usersThatAlreadyLikedTheSong){
             if (user.getMobile().equals(mobile)){
                 userAlreadyLikedTheSong = true;
@@ -331,9 +334,8 @@ public class SpotifyRepository {
             //add user to the list of user who liked the song
             List<User> userList  = songLikeMap.get(song);
             userList.add(user);
-            if (songLikeMap.containsKey(song)) {
-                songLikeMap.put(song, userList);
-            }
+            songLikeMap.put(song,userList);
+
             //increase artist like count
 //            for (Artist artist : artistAlbumMap.keySet()){
 //                List<Album> albumList = artistAlbumMap.get(artist);
@@ -464,7 +466,7 @@ public class SpotifyRepository {
         return albums;
     }
 
-    public HashSet<Artist> getListOfArtists(){
+    public List<Artist> getListOfArtists(){
         return artists;
     }
 

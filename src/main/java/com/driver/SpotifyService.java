@@ -71,7 +71,7 @@ public class SpotifyService {
         return spotifyRepository.getListOfAlbums();
     }
 
-    public HashSet<Artist> getListOfArtists(){
+    public List<Artist> getListOfArtists(){
         return spotifyRepository.getListOfArtists();
     }
 
