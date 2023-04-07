@@ -122,6 +122,7 @@ public class SpotifyRepository {
             throw new Exception("Album does not exist");
         }
         Song song = new Song(title,length);
+        songs.add(song);
         albumSongMap.get(album).add(song);
         songLikeMap.put(song,new ArrayList<>());
         return song;
