@@ -93,17 +93,7 @@ public class SpotifyRepository {
 
 
 
-//        if (!doesArtistExist){
-//            artist = new Artist(artistName);
-//            artists.add(artist);
-//            if(!artistAlbumMap.containsKey(artist))
-//                artistAlbumMap.put(artist,albums);
-//            return album;
-//        }else {
-//            if (artistAlbumMap.containsKey(artist))
-//                artistAlbumMap.put(artist,albums);
-//            return album;
-//        }
+
         return album;
     }
 
@@ -343,10 +333,23 @@ public class SpotifyRepository {
                     for (Song song1 : songList){
                         if (song1.getTitle().equals(songTitle)){
                             artist.setLikes(artist.getLikes()+1);
+                            return song;
                         }
                     }
                 }
             }
+
+            //To increase artist count,we need to find album of that artist and then the artist itself
+//            Album albumToWhichSongBelongs = null;
+//            for (Album album : albumSongMap.keySet()){
+//                for (Song song1 : albumSongMap.get(album)){
+//                    if (song1.getTitle().equals(songTitle)){
+//                        albumToWhichSongBelongs = album;
+//
+//                    }
+//                }
+//            }
+
         }
 
 
@@ -426,53 +429,53 @@ public class SpotifyRepository {
 
 
 
-    public List<User> getListOfUsers(){
-        return users;
-    }
-
-    public List<Song> getListOfSongs(){
-        return songs;
-    }
-
-    public List<Playlist> getListOfPlaylists(){
-        return playlists;
-    }
-
-    public List<Album> getListOfAlbums(){
-        return albums;
-    }
-
-    public List<Artist> getListOfArtists(){
-        return artists;
-    }
-
-    public HashMap<Artist,List<Album>> getartistAlbumMap(){
-        return artistAlbumMap;
-    }
-
-    public HashMap<Album,List<Song>> getalbumSongMap(){
-        return albumSongMap;
-    }
-
-    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
-        return playlistSongMap;
-    }
-
-    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
-        return playlistListenerMap;
-    }
-
-    public HashMap<User,Playlist> getcreatorPlaylistMap(){
-        return creatorPlaylistMap;
-    }
-
-    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
-        return userPlaylistMap;
-    }
-
-    public HashMap<Song,List<User>> getsongLikeMap(){
-        return songLikeMap;
-    }
+//    public List<User> getListOfUsers(){
+//        return users;
+//    }
+//
+//    public List<Song> getListOfSongs(){
+//        return songs;
+//    }
+//
+//    public List<Playlist> getListOfPlaylists(){
+//        return playlists;
+//    }
+//
+//    public List<Album> getListOfAlbums(){
+//        return albums;
+//    }
+//
+//    public List<Artist> getListOfArtists(){
+//        return artists;
+//    }
+//
+//    public HashMap<Artist,List<Album>> getartistAlbumMap(){
+//        return artistAlbumMap;
+//    }
+//
+//    public HashMap<Album,List<Song>> getalbumSongMap(){
+//        return albumSongMap;
+//    }
+//
+//    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
+//        return playlistSongMap;
+//    }
+//
+//    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
+//        return playlistListenerMap;
+//    }
+//
+//    public HashMap<User,Playlist> getcreatorPlaylistMap(){
+//        return creatorPlaylistMap;
+//    }
+//
+//    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
+//        return userPlaylistMap;
+//    }
+//
+//    public HashMap<Song,List<User>> getsongLikeMap(){
+//        return songLikeMap;
+//    }
 
 
 }

@@ -51,52 +51,56 @@ public class SpotifyService {
         return spotifyRepository.mostPopularSong();
     }
 
-    public List<User> getListOfUsers(){
-        return spotifyRepository.getListOfUsers();
-    }
-
-    public List<Song> getListOfSongs(){
-        return spotifyRepository.getListOfSongs();
-    }
-
-    public List<Playlist> getListOfPlaylists(){
-        return spotifyRepository.getListOfPlaylists();
-    }
-
-    public List<Album> getListOfAlbums(){
-        return spotifyRepository.getListOfAlbums();
-    }
-
-    public List<Artist> getListOfArtists(){
-        return spotifyRepository.getListOfArtists();
-    }
 
 
-    public HashMap<Artist,List<Album>> getartistAlbumMap(){
-        return spotifyRepository.getartistAlbumMap();
-    }
 
-    public HashMap<Album,List<Song>> getalbumSongMap(){
-        return spotifyRepository.getalbumSongMap();
-    }
 
-    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
-        return spotifyRepository.getplaylistSongMap();
-    }
-
-    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
-        return spotifyRepository.getplaylistListenerMap();
-    }
-
-    public HashMap<User,Playlist> getcreatorPlaylistMap(){
-        return spotifyRepository.getcreatorPlaylistMap();
-    }
-
-    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
-        return spotifyRepository.getuserPlaylistMap();
-    }
-
-    public HashMap<Song,List<User>> getsongLikeMap(){
-        return spotifyRepository.getsongLikeMap();
-    }
+//    public List<User> getListOfUsers(){
+//        return spotifyRepository.getListOfUsers();
+//    }
+//
+//    public List<Song> getListOfSongs(){
+//        return spotifyRepository.getListOfSongs();
+//    }
+//
+//    public List<Playlist> getListOfPlaylists(){
+//        return spotifyRepository.getListOfPlaylists();
+//    }
+//
+//    public List<Album> getListOfAlbums(){
+//        return spotifyRepository.getListOfAlbums();
+//    }
+//
+//    public List<Artist> getListOfArtists(){
+//        return spotifyRepository.getListOfArtists();
+//    }
+//
+//
+//    public HashMap<Artist,List<Album>> getartistAlbumMap(){
+//        return spotifyRepository.getartistAlbumMap();
+//    }
+//
+//    public HashMap<Album,List<Song>> getalbumSongMap(){
+//        return spotifyRepository.getalbumSongMap();
+//    }
+//
+//    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
+//        return spotifyRepository.getplaylistSongMap();
+//    }
+//
+//    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
+//        return spotifyRepository.getplaylistListenerMap();
+//    }
+//
+//    public HashMap<User,Playlist> getcreatorPlaylistMap(){
+//        return spotifyRepository.getcreatorPlaylistMap();
+//    }
+//
+//    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
+//        return spotifyRepository.getuserPlaylistMap();
+//    }
+//
+//    public HashMap<Song,List<User>> getsongLikeMap(){
+//        return spotifyRepository.getsongLikeMap();
+//    }
 }
