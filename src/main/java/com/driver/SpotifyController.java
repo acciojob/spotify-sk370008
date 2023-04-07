@@ -12,7 +12,7 @@ public class SpotifyController {
     SpotifyService spotifyService = new SpotifyService();
 
     @PostMapping("/add-user")
-    public String createUser(@RequestParam(name = "name") String name, String mobile){
+    public String createUser(@RequestParam(name = "name") String name, @RequestParam String mobile){
         //create the user with given name and number
         spotifyService.createUser(name,mobile);
         return "Success";
@@ -26,7 +26,7 @@ public class SpotifyController {
     }
 
     @PostMapping("/add-album")
-    public String createAlbum(@RequestParam(name = "title") String title, String artistName){
+    public String createAlbum(@RequestParam(name = "title") String title, @RequestParam String artistName){
         //If the artist does not exist, first create an artist with given name
         //Create an album with given title and artist
         spotifyService.createAlbum(title,artistName);
@@ -34,7 +34,8 @@ public class SpotifyController {
     }
 
     @PostMapping("/add-song")
-    public String createSong(String title, String albumName, int length) throws Exception{
+    public String createSong(@RequestParam(name = "title") String title,@RequestParam(name = "albumName") String albumName,
+                             @RequestParam(name = "length") int length) throws Exception{
         //If the album does not exist in database, throw "Album does not exist" exception
         //Create and add the song to respective album
         spotifyService.createSong(title,albumName,length);
@@ -42,7 +43,7 @@ public class SpotifyController {
     }
 
     @PostMapping("/add-playlist-on-length")
-    public String createPlaylistOnLength(String mobile, String title, int length) throws Exception{
+    public String createPlaylistOnLength(@RequestParam String mobile,@RequestParam String title,@RequestParam int length) throws Exception{
         //Create a playlist with given title and add all songs having the given length in the database to that playlist
         //The creater of the playlist will be the given user and will also be the only listener at the time of playlist creation
         //If the user does not exist, throw "User does not exist" exception
@@ -51,7 +52,8 @@ public class SpotifyController {
     }
 
     @PostMapping("/add-playlist-on-name")
-    public String createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception{
+    public String createPlaylistOnName(@RequestParam String mobile,@RequestParam String title,
+                                       @RequestBody List<String> songTitles) throws Exception{
         //Create a playlist with given title and add all songs having the given titles in the database to that playlist
         //The creater of the playlist will be the given user and will also be the only listener at the time of playlist creation
         //If the user does not exist, throw "User does not exist" exception
@@ -60,7 +62,7 @@ public class SpotifyController {
     }
 
     @PutMapping("/find-playlist")
-    public String findPlaylist(String mobile, String playlistTitle) throws Exception{
+    public String findPlaylist(@RequestParam String mobile,@RequestParam String playlistTitle) throws Exception{
         //Find the playlist with given title and add user as listener of that playlist and update user accordingly
         //If the user is creater or already a listener, do nothing
         //If the user does not exist, throw "User does not exist" exception
@@ -71,7 +73,7 @@ public class SpotifyController {
     }
 
     @PutMapping("/like-song")
-    public String likeSong(String mobile, String songTitle) throws Exception{
+    public String likeSong(@RequestParam String mobile,@RequestParam String songTitle) throws Exception{
         //The user likes the given song. The corresponding artist of the song gets auto-liked
         //A song can be liked by a user only once. If a user tried to like a song multiple times, do nothing
         //However, an artist can indirectly have multiple likes from a user, if the user has liked multiple songs of that artist.
@@ -94,8 +96,65 @@ public class SpotifyController {
         return spotifyService.mostPopularSong();
     }
 
-    @GetMapping("/check")
-    public List<Artist> check(){
-        return spotifyService.check();
+
+
+    @GetMapping("/list-of-users")
+    public List<User> getListOfUsers(){
+        return spotifyService.getListOfUsers();
+    }
+
+    @GetMapping("/list-of-songs")
+    public List<Song> getListOfSongs(){
+        return spotifyService.getListOfSongs();
+    }
+
+    @GetMapping("/list-of-playlists")
+    public List<Playlist> getListOfPlaylists(){
+        return spotifyService.getListOfPlaylists();
+    }
+
+    @GetMapping("/list-of-albums")
+    public List<Album> getListOfAlbums(){
+        return spotifyService.getListOfAlbums();
+    }
+
+    @GetMapping("/list-of-artists")
+    public List<Artist> getListOfArtists(){
+        return spotifyService.getListOfArtists();
+    }
+
+    @GetMapping("/artist-album-map")
+    public HashMap<Artist,List<Album>> getartistAlbumMap(){
+        return spotifyService.getartistAlbumMap();
+    }
+
+    @GetMapping("/album-song-map")
+    public HashMap<Album,List<Song>> getalbumSongMap(){
+        return spotifyService.getalbumSongMap();
+    }
+
+    @GetMapping("/playlist-song-map")
+    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
+        return spotifyService.getplaylistSongMap();
+    }
+
+    @GetMapping("/playlist-listener-map")
+    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
+        return spotifyService.getplaylistListenerMap();
+    }
+
+    @GetMapping("/creator-playlist-map")
+    public HashMap<User,Playlist> getcreatorPlaylistMap(){
+        return spotifyService.getcreatorPlaylistMap();
+    }
+
+    @GetMapping("/user-playlist-map")
+    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
+        return spotifyService.getuserPlaylistMap();
+    }
+
+    @GetMapping("/song-users-map")
+    public HashMap<Song,List<User>> getsongLikeMap(){
+        return spotifyService.getsongLikeMap();
     }
 }
