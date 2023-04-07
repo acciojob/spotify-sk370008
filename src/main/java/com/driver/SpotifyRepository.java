@@ -266,16 +266,18 @@ public class SpotifyRepository {
             }
         }
 
-        List<User> playlistUsers = playlistListenerMap.get(playlist);
-        playlistUsers.add(user);
-        playlistListenerMap.put(playlist,playlistUsers);
+        if (playlistListenerMap.containsKey(playlist)) {
+            List<User> playlistUsers = playlistListenerMap.get(playlist);
+            playlistUsers.add(user);
+            playlistListenerMap.put(playlist, playlistUsers);
+        }
 
-
-        List<Playlist> playlistList = userPlaylistMap.get(user);
-        playlistList.add(playlist);
-        userPlaylistMap.put(user,playlistList);
-
-        return null;
+        if (userPlaylistMap.containsKey(user)) {
+            List<Playlist> playlistList = userPlaylistMap.get(user);
+            playlistList.add(playlist);
+            userPlaylistMap.put(user, playlistList);
+        }
+        return playlist;
     }
 
     //Errors = 2
