@@ -34,7 +34,7 @@ public class SpotifyRepository {
     //contains list of albums
     public List<Album> albums;
     //contains list of artists
-    public List<Artist> artists;
+    public HashSet<Artist> artists;
 
 
     public SpotifyRepository(){
@@ -51,7 +51,7 @@ public class SpotifyRepository {
         songs = new ArrayList<>();
         playlists = new ArrayList<>();
         albums = new ArrayList<>();
-        artists = new ArrayList<>();
+        artists = new HashSet<>();
     }
 
     public User createUser(String name, String mobile) {
@@ -64,8 +64,10 @@ public class SpotifyRepository {
 
     public Artist createArtist(String name) {
         Artist artist = new Artist(name);
-        artistAlbumMap.put(artist,new ArrayList<>());
-        artists.add(artist);
+        if (artists.contains(artist)) {
+            artistAlbumMap.put(artist, new ArrayList<>());
+            artists.add(artist);
+        }
         return artist;
     }
 
@@ -89,13 +91,10 @@ public class SpotifyRepository {
 
         Album album = new Album(title);
         albums.add(album);
-        artistAlbumMap.get(artist).add(album);
+        if (artistAlbumMap.containsKey(artist)) {
+            artistAlbumMap.get(artist).add(album);
+        }
         albumSongMap.put(album,new ArrayList<>());
-
-
-
-
-
         return album;
     }
 
@@ -457,7 +456,7 @@ public class SpotifyRepository {
         return albums;
     }
 
-    public List<Artist> getListOfArtists(){
+    public HashSet<Artist> getListOfArtists(){
         return artists;
     }
 

@@ -119,7 +119,7 @@ public class SpotifyController {
     }
 
     @GetMapping("/list-of-artists")
-    public List<Artist> getListOfArtists(){
+    public HashSet<Artist> getListOfArtists(){
         return spotifyService.getListOfArtists();
     }
 
