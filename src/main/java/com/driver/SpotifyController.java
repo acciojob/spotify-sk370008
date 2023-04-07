@@ -98,63 +98,63 @@ public class SpotifyController {
 
 
 
-//    @GetMapping("/list-of-users")
-//    public List<User> getListOfUsers(){
-//        return spotifyService.getListOfUsers();
-//    }
-//
-//    @GetMapping("/list-of-songs")
-//    public List<Song> getListOfSongs(){
-//        return spotifyService.getListOfSongs();
-//    }
-//
-//    @GetMapping("/list-of-playlists")
-//    public List<Playlist> getListOfPlaylists(){
-//        return spotifyService.getListOfPlaylists();
-//    }
-//
-//    @GetMapping("/list-of-albums")
-//    public List<Album> getListOfAlbums(){
-//        return spotifyService.getListOfAlbums();
-//    }
-//
-//    @GetMapping("/list-of-artists")
-//    public List<Artist> getListOfArtists(){
-//        return spotifyService.getListOfArtists();
-//    }
-//
-//    @GetMapping("/artist-album-map")
-//    public HashMap<Artist,List<Album>> getartistAlbumMap(){
-//        return spotifyService.getartistAlbumMap();
-//    }
-//
-//    @GetMapping("/album-song-map")
-//    public HashMap<Album,List<Song>> getalbumSongMap(){
-//        return spotifyService.getalbumSongMap();
-//    }
-//
-//    @GetMapping("/playlist-song-map")
-//    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
-//        return spotifyService.getplaylistSongMap();
-//    }
-//
-//    @GetMapping("/playlist-listener-map")
-//    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
-//        return spotifyService.getplaylistListenerMap();
-//    }
-//
-//    @GetMapping("/creator-playlist-map")
-//    public HashMap<User,Playlist> getcreatorPlaylistMap(){
-//        return spotifyService.getcreatorPlaylistMap();
-//    }
-//
-//    @GetMapping("/user-playlist-map")
-//    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
-//        return spotifyService.getuserPlaylistMap();
-//    }
-//
-//    @GetMapping("/song-users-map")
-//    public HashMap<Song,List<User>> getsongLikeMap(){
-//        return spotifyService.getsongLikeMap();
-//    }
+    @GetMapping("/list-of-users")
+    public List<User> getListOfUsers(){
+        return spotifyService.getListOfUsers();
+    }
+
+    @GetMapping("/list-of-songs")
+    public List<Song> getListOfSongs(){
+        return spotifyService.getListOfSongs();
+    }
+
+    @GetMapping("/list-of-playlists")
+    public List<Playlist> getListOfPlaylists(){
+        return spotifyService.getListOfPlaylists();
+    }
+
+    @GetMapping("/list-of-albums")
+    public List<Album> getListOfAlbums(){
+        return spotifyService.getListOfAlbums();
+    }
+
+    @GetMapping("/list-of-artists")
+    public List<Artist> getListOfArtists(){
+        return spotifyService.getListOfArtists();
+    }
+
+    @GetMapping("/artist-album-map")
+    public HashMap<Artist,List<Album>> getartistAlbumMap(){
+        return spotifyService.getartistAlbumMap();
+    }
+
+    @GetMapping("/album-song-map")
+    public HashMap<Album,List<Song>> getalbumSongMap(){
+        return spotifyService.getalbumSongMap();
+    }
+
+    @GetMapping("/playlist-song-map")
+    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
+        return spotifyService.getplaylistSongMap();
+    }
+
+    @GetMapping("/playlist-listener-map")
+    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
+        return spotifyService.getplaylistListenerMap();
+    }
+
+    @GetMapping("/creator-playlist-map")
+    public HashMap<User,Playlist> getcreatorPlaylistMap(){
+        return spotifyService.getcreatorPlaylistMap();
+    }
+
+    @GetMapping("/user-playlist-map")
+    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
+        return spotifyService.getuserPlaylistMap();
+    }
+
+    @GetMapping("/song-users-map")
+    public HashMap<Song,List<User>> getsongLikeMap(){
+        return spotifyService.getsongLikeMap();
+    }
 }

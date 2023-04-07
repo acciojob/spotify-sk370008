@@ -62,9 +62,10 @@ public class SpotifyRepository {
     }
 
     public Artist createArtist(String name) {
+        boolean doesArtistAlreadyExists = false;
         Artist artist = new Artist(name);
-        artists.add(artist);
         artistAlbumMap.put(artist,new ArrayList<>());
+        artists.add(artist);
         return artist;
     }
 
@@ -326,30 +327,40 @@ public class SpotifyRepository {
             songLikeMap.put(song,userList);
 
             //increase artist like count
-            for (Artist artist : artistAlbumMap.keySet()){
-                List<Album> albumList = artistAlbumMap.get(artist);
-                for (Album album : albumList){
-                    List<Song> songList = albumSongMap.get(album);
-                    for (Song song1 : songList){
-                        if (song1.getTitle().equals(songTitle)){
-                            artist.setLikes(artist.getLikes()+1);
-                            return song;
-                        }
-                    }
-                }
-            }
-
-            //To increase artist count,we need to find album of that artist and then the artist itself
-//            Album albumToWhichSongBelongs = null;
-//            for (Album album : albumSongMap.keySet()){
-//                for (Song song1 : albumSongMap.get(album)){
-//                    if (song1.getTitle().equals(songTitle)){
-//                        albumToWhichSongBelongs = album;
-//
+//            for (Artist artist : artistAlbumMap.keySet()){
+//                List<Album> albumList = artistAlbumMap.get(artist);
+//                for (Album album : albumList){
+//                    List<Song> songList = albumSongMap.get(album);
+//                    for (Song song1 : songList){
+//                        if (song1.getTitle().equals(songTitle)){
+//                            artist.setLikes(artist.getLikes()+1);
+//                            return song;
+//                        }
 //                    }
 //                }
 //            }
 
+            //To increase artist count,we need to find album of that artist and then the artist itself
+            Album albumToWhichSongBelongs = null;
+            for (Album album : albumSongMap.keySet()){
+                for (Song song1 : albumSongMap.get(album)){
+                    if (song1.getTitle().equals(songTitle)){
+                        albumToWhichSongBelongs = album;
+                        break;
+                    }
+                }
+            }
+
+            Artist artistToWhomSongBelongs = null;
+            for (Artist artist : artistAlbumMap.keySet()){
+                for (Album album : artistAlbumMap.get(artist)){
+                    if (albumToWhichSongBelongs.equals(album)){
+                        artistToWhomSongBelongs = artist;
+                        break;
+                    }
+                }
+            }
+            artistToWhomSongBelongs.setLikes(artistToWhomSongBelongs.getLikes()+1);
         }
 
 
@@ -429,53 +440,53 @@ public class SpotifyRepository {
 
 
 
-//    public List<User> getListOfUsers(){
-//        return users;
-//    }
-//
-//    public List<Song> getListOfSongs(){
-//        return songs;
-//    }
-//
-//    public List<Playlist> getListOfPlaylists(){
-//        return playlists;
-//    }
-//
-//    public List<Album> getListOfAlbums(){
-//        return albums;
-//    }
-//
-//    public List<Artist> getListOfArtists(){
-//        return artists;
-//    }
-//
-//    public HashMap<Artist,List<Album>> getartistAlbumMap(){
-//        return artistAlbumMap;
-//    }
-//
-//    public HashMap<Album,List<Song>> getalbumSongMap(){
-//        return albumSongMap;
-//    }
-//
-//    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
-//        return playlistSongMap;
-//    }
-//
-//    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
-//        return playlistListenerMap;
-//    }
-//
-//    public HashMap<User,Playlist> getcreatorPlaylistMap(){
-//        return creatorPlaylistMap;
-//    }
-//
-//    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
-//        return userPlaylistMap;
-//    }
-//
-//    public HashMap<Song,List<User>> getsongLikeMap(){
-//        return songLikeMap;
-//    }
+    public List<User> getListOfUsers(){
+        return users;
+    }
+
+    public List<Song> getListOfSongs(){
+        return songs;
+    }
+
+    public List<Playlist> getListOfPlaylists(){
+        return playlists;
+    }
+
+    public List<Album> getListOfAlbums(){
+        return albums;
+    }
+
+    public List<Artist> getListOfArtists(){
+        return artists;
+    }
+
+    public HashMap<Artist,List<Album>> getartistAlbumMap(){
+        return artistAlbumMap;
+    }
+
+    public HashMap<Album,List<Song>> getalbumSongMap(){
+        return albumSongMap;
+    }
+
+    public HashMap<Playlist,List<Song>> getplaylistSongMap(){
+        return playlistSongMap;
+    }
+
+    public HashMap<Playlist,List<User>> getplaylistListenerMap(){
+        return playlistListenerMap;
+    }
+
+    public HashMap<User,Playlist> getcreatorPlaylistMap(){
+        return creatorPlaylistMap;
+    }
+
+    public HashMap<User,List<Playlist>> getuserPlaylistMap(){
+        return userPlaylistMap;
+    }
+
+    public HashMap<Song,List<User>> getsongLikeMap(){
+        return songLikeMap;
+    }
 
 
 }
