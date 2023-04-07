@@ -58,11 +58,11 @@ public class SpotifyRepository {
         User user = new User(name,mobile);
         users.add(user);
         userPlaylistMap.put(user,new ArrayList<>());
+
         return user;
     }
 
     public Artist createArtist(String name) {
-        boolean doesArtistAlreadyExists = false;
         Artist artist = new Artist(name);
         artistAlbumMap.put(artist,new ArrayList<>());
         artists.add(artist);
@@ -75,17 +75,18 @@ public class SpotifyRepository {
 
 
         Artist artist = null;
-//        boolean doesArtistExist = false;
-//        for (Artist artistInList : artists){
-//            if(artistInList.getName().equals(artistName)){
-//                doesArtistExist = true;
-//                artist = artistInList;
-//            }
-//        }
+        boolean doesArtistExist = false;
+        for (Artist artistInList : artists){
+            if(artistInList.getName().equals(artistName)){
+                doesArtistExist = true;
+                artist = artistInList;
+            }
+        }
 
-        if (!artistAlbumMap.containsKey(artist)){
+        if (!doesArtistExist && !artistAlbumMap.containsKey(artist)){
             artist = createArtist(artistName);
         }
+
         Album album = new Album(title);
         albums.add(album);
         artistAlbumMap.get(artist).add(album);
