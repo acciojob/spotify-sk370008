@@ -94,7 +94,12 @@ public class SpotifyRepository {
         if (artistAlbumMap.containsKey(artist)) {
             artistAlbumMap.get(artist).add(album);
         }
-        albumSongMap.put(album,new ArrayList<>());
+
+
+        //last change
+        if (albumSongMap.containsKey(album)) {
+            albumSongMap.put(album, new ArrayList<>());
+        }
         return album;
     }
 
@@ -310,8 +315,10 @@ public class SpotifyRepository {
         }
 
         boolean userAlreadyLikedTheSong = false;
-        List<User> usersThatAlreadyLikedTheSong = songLikeMap.get(song);
-
+        List<User> usersThatAlreadyLikedTheSong = null;
+        if (songLikeMap.containsKey(song)) {
+            usersThatAlreadyLikedTheSong = songLikeMap.get(song);
+        }
         for (User user1 : usersThatAlreadyLikedTheSong){
             if (user.getMobile().equals(mobile)){
                 userAlreadyLikedTheSong = true;
@@ -324,8 +331,9 @@ public class SpotifyRepository {
             //add user to the list of user who liked the song
             List<User> userList  = songLikeMap.get(song);
             userList.add(user);
-            songLikeMap.put(song,userList);
-
+            if (songLikeMap.containsKey(song)) {
+                songLikeMap.put(song, userList);
+            }
             //increase artist like count
 //            for (Artist artist : artistAlbumMap.keySet()){
 //                List<Album> albumList = artistAlbumMap.get(artist);
@@ -405,7 +413,7 @@ public class SpotifyRepository {
     public String mostPopularArtist() {
         String mostPopular = null;
         int likes = Integer.MIN_VALUE;
-        for (Artist artist :artists){
+        for (Artist artist :artists.){
             if (artist.getLikes()>likes){
                 likes = artist.getLikes();
                 mostPopular = artist.getName();
